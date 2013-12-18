@@ -44,7 +44,7 @@ function getRandomInt(min, max) {
 
 function getBudgetTotal (budgetArr) {
 	var budgetTotal = 0;
-	for (var i = 0; i < budgetArr.length; i++) {
+	for (var i = 0; i < budgetArr.length - 1; i++) {
 		budgetTotal += budgetArr[i].value;
 	}
 	return budgetTotal;

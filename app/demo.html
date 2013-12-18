@@ -119,20 +119,20 @@
     <label>What did you do to get it?</label>
     <input ng-model='addIncomeDesc' id='add-income-desc' type='text' placeholder='Income' >
 
-    <button ng-click='addIncome()' id='add-income' class='expand radius'>Add</button>  
+    <div ng-switch on='showUpdate'>
+	    <button ng-switch-default ng-click='addIncome()' id='add-income' class='expand radius'>Add</button>
+	    <button ng-switch-when='true' ng-click='updateIncome()' class='expand radius'>Update</button>
+    </div>
     
     <div class='item-list-container'>
 	<table id='income-list' class='item-list-tables'>		
 		<tbody ng-repeat='incomeEntry in incomeArr'>
 			<tr>
-				<td ng-model='editIncomeDesc' ng-change='editIncome($index)' contenteditable="true" data-tooltip title="Click here to change this">
-					{{incomeEntry.desc}}
-				</td>
-				<td ng-model='editIncomeValue' ng-change='editIncome($index)' contenteditable="true" class='value-column' data-tooltip title="Click here to change this">
-					{{incomeEntry.value}}
-				</td>
-				
+				<td>{{incomeEntry.desc}}</td>
+				<td class='value-column'>{{incomeEntry.value}}</td>				
 				<td>
+					<button ng-click='editIncome($index)' class='mini radius edit-this-item fi-page-edit secondary' title='Edit this entry'></button>
+					&nbsp;
 					<button ng-click='deleteIncome($index)' class='mini radius delete-this-item fi-trash secondary' title='Delete this entry'></button>
 				</td>
 			</tr>			
