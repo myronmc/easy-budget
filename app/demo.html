@@ -125,21 +125,27 @@
 	<table id='income-list' class='item-list-tables'>		
 		<tbody ng-repeat='incomeEntry in incomeArr'>
 			<tr>
-				<td contenteditable="true" data-tooltip title="Click here to change this">{{incomeEntry.incomeRecord.desc}}</td>
-				<td contenteditable="true" class='value-column' data-tooltip title="Click here to change this">{{incomeEntry.incomeRecord.value}}</td>
+				<td ng-model='editIncomeDesc' ng-change='editIncome($index)' contenteditable="true" data-tooltip title="Click here to change this">
+					{{incomeEntry.desc}}
+				</td>
+				<td ng-model='editIncomeValue' ng-change='editIncome($index)' contenteditable="true" class='value-column' data-tooltip title="Click here to change this">
+					{{incomeEntry.value}}
+				</td>
 				
-				<td><button ng-click='deleteRow()' class='mini radius delete-this-item fi-trash secondary' title='Delete this entry'></button></td>
+				<td>
+					<button ng-click='deleteIncome($index)' class='mini radius delete-this-item fi-trash secondary' title='Delete this entry'></button>
+				</td>
 			</tr>			
 		</tbody>
 	</table>
 	</div>
 	<br>
-    <div id='income-alert-box' style='display:none' data-alert class="alert-box warning text-center">
-	  <a href='#' class='undo-delete'>
+    <div id='income-alert-box' ng-show='isUndoDeleteIncome' data-alert class="alert-box warning text-center">
+	  <a href='#' class='undo-delete' ng-click='undoDeleteIncome()' >
 	  	<span class='button-mini-icon fi-alert'></span>
 	  	<b> Put it back?</b>
 	  </a>
-	  <!--<a href="#" class="close">&times;</a>-->
+	  <a href="#" class="close">&times;</a>
 	</div>
     </div>
     
@@ -259,9 +265,6 @@
 	<script src="js/mvc/services.js"></script>
 	<script src="js/mvc/controllers.js"></script>
 	<script src="js/mvc/filters.js"></script>
-	<script src="js/mvc/directives.js"></script> 
-    <script>
-      //$(document).foundation();
-    </script>
+	<!--<script src="js/mvc/directives.js"></script>--> 
   </body>
 </html>
