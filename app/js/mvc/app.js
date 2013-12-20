@@ -1,7 +1,10 @@
 'use strict';
-var totalIncome = 10;
-var totalExpense = 20; 
-
+var totalIncome = 10; //chart values
+var totalExpense = 20; //chart values
+var incomeDescEntries = []; //auto complete arrays
+var expenseDescEntries = []; //auto complete arrays
+var appState = ''; // default state: '', INCOME or EXPENSE
+ 
 $(document).foundation(); //initialize foundation
 
  // Load the Visualization API and the piechart package.
@@ -52,6 +55,36 @@ function getBudgetTotal (budgetArr, newLength) {
 	}
 	return budgetTotal;
 }
+
+/*
+ * income auto complete
+ */
+$(function() {
+    incomeDescEntries = [
+      "salary",
+      "tips",
+      "gifts",
+      "government subsidy"      
+    ];
+    $( "#add-income-desc" ).autocomplete({
+      source: incomeDescEntries
+    });
+ });
+
+/*
+ * expense auto complete
+ */
+$(function() {
+    expenseDescEntries = [
+      "bus fare",
+      "taxi fare",
+      "grocery",
+      "movies"      
+    ];
+    $( "#add-expense-desc" ).autocomplete({
+      source: expenseDescEntries
+    });
+ });
 
 // Declare app level module which depends on filters, and services
 /*

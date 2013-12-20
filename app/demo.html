@@ -78,80 +78,82 @@
 <br/>
 <div class="row">
   <div class="small-4 large-4 columns">
-    <div id='income-panel' class='panel main-panels' ng-controller='IncomeCtrl'>
-    <a href="#" class="button radius success expand" data-reveal-id="income-modal" id='trigger-income-modal'>    	
-    	<span class='button-large-icon fi-dollar-bill'></span>
-    	<span class='button-large-icon fi-dollar'></span>    	
-    	
-    	<span class='button-caption fi-arrow-down'>Income </span>
-	</a>
-	<div id="income-modal" class="small reveal-modal" data-reveal>
-		<div class="row">
-  			<div class="large-8 columns">
-				<h2>Income</h2>
-		          <p class="lead">Use this to track money you made, like:</p>
-		          <ul>
-		              <li>salary</li>
-		              <li>tips</li>
-		              <li>gifts</li>
-		              <li>government subsidy</li>
-		          </ul>
-		          <br>
-		          <label for='no-show-income-modal-again'>
-		          	<input type='checkbox' id='no-show-income-modal-again'>
-		          	Don't tell me this message again
-		      	  </label>
+    <div id='income-panel' class='panel main-panels' ng-controller='IncomeCtrl' ng-class="{'callout':isAppState('INCOME')}">
+	    <a href="#" class="button radius success expand" data-reveal-id="income-modal" id='trigger-income-modal'>    	
+	    	<span class='button-large-icon fi-dollar-bill'></span>
+	    	<span class='button-large-icon fi-dollar'></span>    	
+	    	
+	    	<span class='button-caption fi-arrow-down'>Income </span>
+		</a>
+		<div id="income-modal" class="small reveal-modal" data-reveal>
+			<div class="row">
+	  			<div class="large-8 columns">
+					<h2>Income</h2>
+			          <p class="lead">Use this to track money you made, like:</p>
+			          <ul>
+			              <li>salary</li>
+			              <li>tips</li>
+			              <li>gifts</li>
+			              <li>government subsidy</li>
+			          </ul>
+			          <br>
+			         <!--
+					  <label for='no-show-income-modal-again'>
+										   <input type='checkbox' id='no-show-income-modal-again'>
+										   Don't tell me this message again
+										 </label>-->
+					 
+				</div>
+				<div class="large-4 columns text-center income-icon-column">
+					<span class='button-medium-icon fi-dollar-bill'></span><br>
+			    	<span class='button-medium-icon fi-dollar'></span><br>    	
+			    	<span class='button-medium-icon fi-arrow-down'></span><br><br>
+			    	<a href="#"id='edit-income' ng-click='enableIncomeState()' class="tiny radius success button">Ok</a>
+				</div>
 			</div>
-			<div class="large-4 columns text-center income-icon-column">
-				<span class='button-medium-icon fi-dollar-bill'></span><br>
-		    	<span class='button-medium-icon fi-dollar'></span><br>    	
-		    	<span class='button-medium-icon fi-arrow-down'></span><br><br>
-		    	<a href="#"id='edit-income' class="tiny radius success button">Ok</a>
-			</div>
+			<a class="close-reveal-modal">&#215; Cancel This</a>
 		</div>
-		<a class="close-reveal-modal">&#215; Cancel This</a>
-	</div>
-    
-    <br>    
-    <label>How much money did you get?</label>
-    <input ng-model='addIncomeValue' id='add-income-value' type='text' placeholder='0.00' >
-    
-    <label>What did you do to get it?</label>
-    <input ng-model='addIncomeDesc' id='add-income-desc' type='text' placeholder='Income' >
-
-    <div ng-switch on='showUpdate'>
-	    <button ng-switch-default ng-click='addIncome()' id='add-income' class='expand radius'>Add</button>
-	    <button ng-switch-when='true' ng-click='updateIncome()' class='expand radius'>Update</button>
-    </div>
-    
-    <div class='item-list-container'>
-	<table id='income-list' class='item-list-tables'>		
-		<tbody ng-repeat='incomeEntry in incomeArr'>
-			<tr>
-				<td>{{incomeEntry.desc}}</td>
-				<td class='value-column'>{{incomeEntry.value}}</td>				
-				<td>
-					<button ng-click='editIncome($index)' class='mini radius edit-this-item fi-page-edit secondary' title='Edit this entry'></button>
-					&nbsp;
-					<button ng-click='deleteIncome($index)' class='mini radius delete-this-item fi-trash secondary' title='Delete this entry'></button>
-				</td>
-			</tr>			
-		</tbody>
-	</table>
-	</div>
-	<br>
-    <div id='income-alert-box' ng-show='isUndoDeleteIncome' data-alert class="alert-box warning text-center">
-	  <a href='#' class='undo-delete' ng-click='undoDeleteIncome()' >
-	  	<span class='button-mini-icon fi-alert'></span>
-	  	<b> Put it back?</b>
-	  </a>
-	  <a href="#" class="close">&times;</a>
-	</div>
+	    
+	    <br>    
+	    <label>How much money did you get?</label>
+	    <input ng-disabled="!isAppState('INCOME')" ng-model='addIncomeValue' id='add-income-value' type='text' placeholder='0.00' >
+	    
+	    <label>What did you do to get it?</label>
+	    <input ng-disabled="!isAppState('INCOME')" ng-model='addIncomeDesc' id='add-income-desc' type='text' placeholder='Income' >
+	
+	    <div ng-switch on='showUpdate'>
+		    <button ng-disabled="!isAppState('INCOME')" ng-switch-default ng-click='addIncome()' id='add-income' class='expand radius'>Add</button>
+		    <button ng-switch-when='true' ng-click='updateIncome()' class='expand radius'>Update</button>
+	    </div>
+	    
+	    <div class='item-list-container'>
+		<table id='income-list' class='item-list-tables'>		
+			<tbody>
+				<tr ng-repeat='incomeEntry in incomeArr'>
+					<td>{{incomeEntry.desc}}</td>
+					<td class='value-column'>{{incomeEntry.value}}</td>				
+					<td>
+						<button ng-disabled="!isAppState('INCOME')" ng-click='editIncome($index)' class='mini radius edit-this-item fi-page-edit secondary' title='Edit this entry'></button>
+						&nbsp;
+						<button ng-disabled="!isAppState('INCOME')" ng-click='deleteIncome($index)' class='mini radius delete-this-item fi-trash secondary' title='Delete this entry'></button>
+					</td>
+				</tr>			
+			</tbody>
+		</table>
+		</div>
+		<br>
+	    <div id='income-alert-box' ng-show='isUndoDeleteIncome' data-alert class="alert-box warning text-center">
+		  <a href='#' class='undo-delete' ng-click='undoDeleteIncome()' >
+		  	<span class='button-mini-icon fi-alert'></span>
+		  	<b> Put it back?</b>
+		  </a>
+		  <a href="#" class="close">&times;</a>
+		</div>
     </div>
     
   </div>
   <div class="small-4 large-4 columns">
-    <div id='expense-panel' class='panel main-panels'>
+    <div id='expense-panel' class='panel main-panels' ng-controller='ExpenseCtrl' ng-class="{'callout':isAppState('EXPENSE')}">
     <a href="#" class="button radius alert expand"  data-reveal-id="expense-modal" id='trigger-expense-modal'>
     	<span class='button-large-icon fi-dollar-bill'></span>
     	<span class='button-large-icon fi-dollar'></span>
@@ -168,55 +170,56 @@
 			  	<li>grocery</li>
 			  	<li>movies</li>
 			  </ul>
+			  <!--
 			  <label for='no-show-expense-modal-again'>
-			  	<input type='checkbox' id='no-show-expense-modal-again'>
-			  	Don't tell me this message again
-		  	  </label>
+								<input type='checkbox' id='no-show-expense-modal-again'>
+								Don't tell me this message again
+							  </label>-->
+			  
 	  	  </div>
 	  	  <div class="large-4 columns text-center expense-icon-column">
 				<span class='button-medium-icon fi-arrow-up'></span><br>				
 		    	<span class='button-medium-icon fi-dollar'></span><br>	
 		    	<span class='button-medium-icon fi-dollar-bill'></span><br>	    	
-		    	<a href="#" id='edit-expense' class="tiny radius success button">Ok</a>
+		    	<a href="#" id='edit-expense' class="tiny radius success button" ng-click='enableExpenseState()'>Ok</a>
 			</div>	  
 	  <a class="close-reveal-modal">&#215; Cancel This</a>
 	</div>
 	</div>
     <br>
     <label>How much money did you use?</label>
-    <input id='add-expense-value' type='text' placeholder='0.00' size='3' disabled>
+    <input ng-disabled="!isAppState('EXPENSE')" ng-model='addExpenseValue' id='add-expense-value' type='text' placeholder='0.00' size='3'>
     
     <label>What did you use it to do?</label>
-    <input id='add-expense-desc' type='text' placeholder='Expense' size='10' disabled>        
+    <input ng-disabled="!isAppState('EXPENSE')" ng-model='addExpenseDesc' id='add-expense-desc' type='text' placeholder='Expense' size='10'>        
     
-	<button id='add-expense' class='expand radius' disabled>Add</button>
+    <div ng-switch on='showUpdate'>
+		<button ng-disabled="!isAppState('EXPENSE')" ng-switch-default ng-click='addExpense()' id='add-expense' class='expand radius'>Add</button>
+		<button ng-switch-when='true' ng-click='updateExpense()' class='expand radius'>Update</button>
+	</div>
    
 	    <div class='item-list-container'>
 			<table id='expense-list' class='item-list-tables'>		
-			<tbody>
-			<tr>
-				<td contenteditable="false" data-tooltip title="Click here to change this">Expense 1</td>
-				<td contenteditable="false" class='value-column' data-tooltip title="Click here to change this">10</td>
-				<!--<td><button class='mini radius edit-this-item' disabled>Edit</button></td>-->
-				<td><button class='mini radius delete-this-item fi-trash secondary' disabled title='Delete this entry'></button></td>
-			</tr>
-			<tr>
-				<td contenteditable="false" data-tooltip title="Click here to change this">Expense 2</td>
-				<td contenteditable="false" class='value-column' data-tooltip title="Click here to change this">10</td>
-				
-				<td><button class='mini radius delete-this-item fi-trash secondary' disabled title='Delete this entry'></button></td>
-			</tr>
-			
-			</tbody>
+				<tbody>
+					<tr ng-repeat='expenseEntry in expenseArr'>
+						<td>{{expenseEntry.desc}}</td>
+						<td class='value-column'>{{expenseEntry.value}}</td>				
+						<td>
+							<button ng-disabled="!isAppState('EXPENSE')" ng-click='editExpense($index)' class='mini radius edit-this-item fi-page-edit secondary' title='Edit this entry'></button>
+							&nbsp;
+							<button ng-disabled="!isAppState('EXPENSE')" ng-click='deleteExpense($index)' class='mini radius delete-this-item fi-trash secondary' title='Delete this entry'></button>
+						</td>
+					</tr>					
+				</tbody>
 			</table>
 		</div>
 		<br>
-		<div id='expense-alert-box' style='display:none' data-alert class="alert-box warning right-align">
-		  <a href='#' class='undo-delete'>
+		<div id='expense-alert-box' ng-show='isUndoDeleteExpense' data-alert class="alert-box warning right-align">
+		  <a href='#' class='undo-delete' ng-click='undoDeleteExpense()' >
 		  	<span class='button-small-icon fi-alert'></span>
 		  	<b> Put it back?</b>
 		  </a>
-		  <!--<a href="#" class="close">&times;</a>-->
+		  <a href="#" class="close">&times;</a>
 		</div>
     </div>
     
