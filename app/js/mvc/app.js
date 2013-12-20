@@ -42,10 +42,13 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function getBudgetTotal (budgetArr) {
+function getBudgetTotal (budgetArr, newLength) {
 	var budgetTotal = 0;
-	for (var i = 0; i < budgetArr.length - 1; i++) {
+	var budgetArrLength = (_.isUndefined(newLength)) ? budgetArr.length : newLength;
+	
+	for (var i = 0; i < budgetArrLength; i++) {
 		budgetTotal += budgetArr[i].value;
+		console.log("Budget Arr Val: %d. Budget Total: %d.", budgetArr[i].value, budgetTotal);
 	}
 	return budgetTotal;
 }

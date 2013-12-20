@@ -6,12 +6,14 @@
 var budgetEntry = function (desc, value) {
 	this.desc = desc;
 	this.value = value;
+	/*
 	this.setDesc = function(newValue) {
-		this.desc = newValue;
-	};
-	this.setValue = function(newValue) {
-		this.value = newValue;
-	};
+			this.desc = newValue;
+		};
+		this.setValue = function(newValue) {
+			this.value = newValue;
+		};*/
+	
 };
 
 /* Controllers */
@@ -31,8 +33,8 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 	  	$scope.incomeArr.push(incomeRecord);
 	}
 	
-	function updateChartValues() {
-		totalIncome = getBudgetTotal($scope.incomeArr);	  
+	function updateChartValues(newLength) {
+		totalIncome = getBudgetTotal($scope.incomeArr, newLength);	  
 		drawChart();
 	}
 	
@@ -40,12 +42,12 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 	
 	$scope.addIncome = function() {   	  
 	  var incomeRecord = new budgetEntry($scope.addIncomeDesc, $scope.addIncomeValue);
-	  $scope.incomeArr.push(incomeRecord);
+	  updateChartValues($scope.incomeArr.push(incomeRecord));
 	  
 	  $scope.addIncomeDesc = "";
 	  $scope.addIncomeValue = "";
 	  
-	  updateChartValues();
+	  //updateChartValues();
 	  
 	  console.log("IncomeArr Length: " + $scope.incomeArr.length);
 	};
@@ -54,14 +56,16 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 		$scope.addIncomeDesc = $scope.incomeArr[recordPosition].desc; 
 		$scope.addIncomeValue = $scope.incomeArr[recordPosition].value;
 		editRecordPos = recordPosition;		
-		$('#add-income-value').focus();	//this might not be best practice, book sys avoid direct DOM manip via jQuery, but then is this manipulatiion?
-		updateChartValues();	
+		$('#add-income-value').focus();	//this might not be best practice, book sys avoid direct DOM manip via jQuery, but then is this manipulation?
 		$scope.showUpdate = true;		
 	};
 	
 	$scope.updateIncome = function() {
+		/*
 		$scope.incomeArr[editRecordPos].setDesc($scope.addIncomeDesc);
-		$scope.incomeArr[editRecordPos].setValue($scope.addIncomeValue);
+				$scope.incomeArr[editRecordPos].setValue($scope.addIncomeValue);*/
+		$scope.incomeArr[editRecordPos].desc = ($scope.addIncomeDesc);
+		$scope.incomeArr[editRecordPos].value = ($scope.addIncomeValue);		
 		$scope.addIncomeDesc = "";
 	  	$scope.addIncomeValue = "";
 	  	updateChartValues();
