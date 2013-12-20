@@ -116,7 +116,7 @@
 	    
 	    <br>    
 	    <label>How much money did you get?</label>
-	    <input ng-disabled="!isAppState('INCOME')" ng-model='addIncomeValue' id='add-income-value' type='text' placeholder='0.00' >
+	    <input ng-disabled="!isAppState('INCOME')" ng-model='addIncomeValue' id='add-income-value' type='number' placeholder='0.00' >
 	    
 	    <label>What did you do to get it?</label>
 	    <input ng-disabled="!isAppState('INCOME')" ng-model='addIncomeDesc' id='add-income-desc' type='text' placeholder='Income' >
@@ -188,7 +188,7 @@
 	</div>
     <br>
     <label>How much money did you use?</label>
-    <input ng-disabled="!isAppState('EXPENSE')" ng-model='addExpenseValue' id='add-expense-value' type='text' placeholder='0.00' size='3'>
+    <input ng-disabled="!isAppState('EXPENSE')" ng-model='addExpenseValue' id='add-expense-value' type='number' placeholder='0.00' size='3'>
     
     <label>What did you use it to do?</label>
     <input ng-disabled="!isAppState('EXPENSE')" ng-model='addExpenseDesc' id='add-expense-desc' type='text' placeholder='Expense' size='10'>        

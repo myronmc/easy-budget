@@ -25,22 +25,22 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 	  	$scope.incomeArr.push(incomeRecord);
 	}
 	
-	function updateChartValues(newLength) {
-		totalIncome = getBudgetTotal($scope.incomeArr, newLength);	  
+	function updateChartValues() {
+		totalIncome = getBudgetTotal($scope.incomeArr);	  
 		drawChart();
 	}
 	
 	updateChartValues();
 	
 	$scope.addIncome = function() {   	  
-	  var incomeRecord = new budgetEntry($scope.addIncomeDesc, $scope.addIncomeValue);
-	  updateChartValues($scope.incomeArr.push(incomeRecord));
+	  var incomeRecord = new budgetEntry($scope.addIncomeDesc, parseInt($scope.addIncomeValue));
+	  $scope.incomeArr.unshift(incomeRecord);	//add new record at the top of the array  
 	  incomeDescEntries.push($scope.addIncomeDesc); //save income descriptions to autocomplete array
 	  
 	  $scope.addIncomeDesc = "";
 	  $scope.addIncomeValue = "";
 	  
-	  //updateChartValues();
+	  updateChartValues();
 	  
 	  console.log("IncomeArr Length: " + $scope.incomeArr.length);
 	};
@@ -58,7 +58,7 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 		$scope.incomeArr[editRecordPos].setDesc($scope.addIncomeDesc);
 				$scope.incomeArr[editRecordPos].setValue($scope.addIncomeValue);*/
 		$scope.incomeArr[editRecordPos].desc = ($scope.addIncomeDesc);
-		$scope.incomeArr[editRecordPos].value = ($scope.addIncomeValue);		
+		$scope.incomeArr[editRecordPos].value = parseInt($scope.addIncomeValue);		
 		$scope.addIncomeDesc = "";
 	  	$scope.addIncomeValue = "";
 	  	updateChartValues();
@@ -104,22 +104,22 @@ easyBudget.controller('ExpenseCtrl', ['$scope', function ($scope) {
 	  	$scope.expenseArr.push(expenseRecord);
 	}
 	
-	function updateChartValues(newLength) {
-		totalExpense = getBudgetTotal($scope.expenseArr, newLength);	  
+	function updateChartValues() {
+		totalExpense = getBudgetTotal($scope.expenseArr);	  
 		drawChart();
 	}
 	
 	updateChartValues();
 	
-	$scope.addExpense = function() {   	  
-	  var expenseRecord = new budgetEntry($scope.addExpenseDesc, $scope.addExpenseValue);
-	  updateChartValues($scope.expenseArr.push(expenseRecord));
+	$scope.addExpense = function() {	  
+	  var expenseRecord = new budgetEntry($scope.addExpenseDesc, parseInt($scope.addExpenseValue));
+	  $scope.expenseArr.unshift(expenseRecord);	//add new record at the top of the array  
 	  expenseDescEntries.push($scope.addExpenseDesc); //save expense descriptions to autocomplete array
 	  
 	  $scope.addExpenseDesc = "";
 	  $scope.addExpenseValue = "";
 	  
-	  //updateChartValues();
+	  updateChartValues();
 	  
 	  console.log("ExpenseArr Length: " + $scope.expenseArr.length);
 	};
@@ -137,7 +137,7 @@ easyBudget.controller('ExpenseCtrl', ['$scope', function ($scope) {
 		$scope.expenseArr[editRecordPos].setDesc($scope.addExpenseDesc);
 				$scope.expenseArr[editRecordPos].setValue($scope.addExpenseValue);*/
 		$scope.expenseArr[editRecordPos].desc = ($scope.addExpenseDesc);
-		$scope.expenseArr[editRecordPos].value = ($scope.addExpenseValue);		
+		$scope.expenseArr[editRecordPos].value = parseInt($scope.addExpenseValue);		
 		$scope.addExpenseDesc = "";
 	  	$scope.addExpenseValue = "";
 	  	updateChartValues();

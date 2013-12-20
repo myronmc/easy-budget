@@ -1,9 +1,9 @@
 'use strict';
-var totalIncome = 10; //chart values
-var totalExpense = 20; //chart values
+var totalIncome = 0; //chart values
+var totalExpense = 0; //chart values
 var incomeDescEntries = []; //auto complete arrays
 var expenseDescEntries = []; //auto complete arrays
-var appState = ''; // default state: '', INCOME or EXPENSE
+var appState = 'EXPENSE'; // default state: '', INCOME or EXPENSE
  
 $(document).foundation(); //initialize foundation
 
@@ -45,11 +45,10 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function getBudgetTotal (budgetArr, newLength) {
-	var budgetTotal = 0;
-	var budgetArrLength = (_.isUndefined(newLength)) ? budgetArr.length : newLength;
+function getBudgetTotal (budgetArr) {
+	var budgetTotal = 0;	
 	
-	for (var i = 0; i < budgetArrLength; i++) {
+	for (var i = 0; i < budgetArr.length; i++) {
 		budgetTotal += budgetArr[i].value;
 		console.log("Budget Arr Val: %d. Budget Total: %d.", budgetArr[i].value, budgetTotal);
 	}
