@@ -1,8 +1,6 @@
 'use strict';
 var totalIncome = 0; //chart values
 var totalExpense = 0; //chart values
-var incomeDescEntries = []; //auto complete arrays
-var expenseDescEntries = []; //auto complete arrays
 var appState = 'EXPENSE'; // default state: '', INCOME or EXPENSE
  
 $(document).foundation(); //initialize foundation
@@ -54,36 +52,6 @@ function getBudgetTotal (budgetArr) {
 	}
 	return budgetTotal;
 }
-
-/*
- * income auto complete
- */
-$(function() {
-    incomeDescEntries = [
-      "salary",
-      "tips",
-      "gifts",
-      "government subsidy"      
-    ];
-    $( "#add-income-desc" ).autocomplete({
-      source: incomeDescEntries
-    });
- });
-
-/*
- * expense auto complete
- */
-$(function() {
-    expenseDescEntries = [
-      "bus fare",
-      "taxi fare",
-      "grocery",
-      "movies"      
-    ];
-    $( "#add-expense-desc" ).autocomplete({
-      source: expenseDescEntries
-    });
- });
 
 // Declare app level module which depends on filters, and services
 /*

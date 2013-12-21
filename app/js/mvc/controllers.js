@@ -35,8 +35,7 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 	$scope.addIncome = function() {   	  
 	  var incomeRecord = new budgetEntry($scope.addIncomeDesc, parseInt($scope.addIncomeValue));
 	  $scope.incomeArr.unshift(incomeRecord);	//add new record at the top of the array  
-	  incomeDescEntries.push($scope.addIncomeDesc); //save income descriptions to autocomplete array
-	  
+	  	  
 	  $scope.addIncomeDesc = "";
 	  $scope.addIncomeValue = "";
 	  
@@ -54,9 +53,6 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 	};
 	
 	$scope.updateIncome = function() {
-		/*
-		$scope.incomeArr[editRecordPos].setDesc($scope.addIncomeDesc);
-				$scope.incomeArr[editRecordPos].setValue($scope.addIncomeValue);*/
 		$scope.incomeArr[editRecordPos].desc = ($scope.addIncomeDesc);
 		$scope.incomeArr[editRecordPos].value = parseInt($scope.addIncomeValue);		
 		$scope.addIncomeDesc = "";
@@ -114,8 +110,7 @@ easyBudget.controller('ExpenseCtrl', ['$scope', function ($scope) {
 	$scope.addExpense = function() {	  
 	  var expenseRecord = new budgetEntry($scope.addExpenseDesc, parseInt($scope.addExpenseValue));
 	  $scope.expenseArr.unshift(expenseRecord);	//add new record at the top of the array  
-	  expenseDescEntries.push($scope.addExpenseDesc); //save expense descriptions to autocomplete array
-	  
+	  	  
 	  $scope.addExpenseDesc = "";
 	  $scope.addExpenseValue = "";
 	  
@@ -133,9 +128,6 @@ easyBudget.controller('ExpenseCtrl', ['$scope', function ($scope) {
 	};
 	
 	$scope.updateExpense = function() {
-		/*
-		$scope.expenseArr[editRecordPos].setDesc($scope.addExpenseDesc);
-				$scope.expenseArr[editRecordPos].setValue($scope.addExpenseValue);*/
 		$scope.expenseArr[editRecordPos].desc = ($scope.addExpenseDesc);
 		$scope.expenseArr[editRecordPos].value = parseInt($scope.addExpenseValue);		
 		$scope.addExpenseDesc = "";
