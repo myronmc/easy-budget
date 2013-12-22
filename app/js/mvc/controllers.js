@@ -12,11 +12,12 @@ var budgetEntry = function (desc, value) {
 
 var easyBudget = angular.module('easyBudget', []);
 
-easyBudget.controller('BudgetNotificationsCtrl', ['$scope', function ($scope) {
+easyBudget.controller('BudgetNotificationsCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
 	//$scope.expensePercentage = (totalExpense/(totalIncome + totalExpense)) * 100;
 	
-	
-		var expensePercentage = (totalExpense/(totalIncome + totalExpense)) * 100;
+	$rootScope.updateBudgetNotification = function()	{
+		var expensePercentage = ($rootScope.totalExpense / ($rootScope.totalIncome + $rootScope.totalExpense)) * 100;
+		
 		if (expensePercentage >= 80) {		
 			$scope.alertBoxClass = 'warning';
 			$scope.budgetNotificationsIcon = 'fi-dislike';
@@ -31,11 +32,12 @@ easyBudget.controller('BudgetNotificationsCtrl', ['$scope', function ($scope) {
 	    	$scope.alertBoxClass = 'success';
 			$scope.budgetNotificationsIcon = 'fi-like';
 	    	$scope.budgetNotifcationsMessage = 'Good job, keep increasing the gap!';
-		}
+	    }
+	}
 	
 }]);
 
-easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
+easyBudget.controller('IncomeCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
   	$scope.incomeArr = [];
   	$scope.showUpdate = false;  	
 	var incomeUndoBuffer = [];
@@ -50,7 +52,8 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 	
 	function updateChartValues() {
 		totalIncome = getBudgetTotal($scope.incomeArr);	 		
-		drawChart();		
+		drawChart();
+		$rootScope.totalIncome = totalIncome;	
 	}
 	
 	updateChartValues();
@@ -81,7 +84,8 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 		$scope.addIncomeDesc = "";
 	  	$scope.addIncomeValue = "";
 	  	updateChartValues();
-		$scope.showUpdate = false;		
+		$scope.showUpdate = false;
+
 	};
 	
 	$scope.deleteIncome = function(recordPosition) { 
@@ -108,9 +112,15 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 		return (state == appState);
 	};
 
+	$scope.$watch(function() { return $rootScope.totalIncome } ,
+		function() {
+			$rootScope.updateBudgetNotification();
+		}
+	);
+
 }]);
 
-easyBudget.controller('ExpenseCtrl', ['$scope', function ($scope) {
+easyBudget.controller('ExpenseCtrl', ['$scope', '$rootScope', function ($scope, $rootScope) {
 	$scope.expenseArr = [];
   	$scope.showUpdate = false;  	
 	var expenseUndoBuffer = [];
@@ -126,6 +136,7 @@ easyBudget.controller('ExpenseCtrl', ['$scope', function ($scope) {
 	function updateChartValues() {
 		totalExpense = getBudgetTotal($scope.expenseArr);	  
 		drawChart();
+		$rootScope.totalExpense = totalExpense;
 	}
 	
 	updateChartValues();
@@ -182,5 +193,11 @@ easyBudget.controller('ExpenseCtrl', ['$scope', function ($scope) {
 	$scope.isAppState = function(state) {
 		return (state == appState);
 	};
+
+	$scope.$watch(function() { return $rootScope.totalExpense } ,
+		function() {
+			$rootScope.updateBudgetNotification();
+		}
+	);
 
 }]);
