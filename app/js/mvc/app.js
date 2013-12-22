@@ -1,7 +1,7 @@
 'use strict';
 var totalIncome = 0; //chart values
 var totalExpense = 0; //chart values
-var appState = 'EXPENSE'; // default state: '', INCOME or EXPENSE
+var appState = 'INCOME'; // default state: '', INCOME or EXPENSE
  
 $(document).foundation(); //initialize foundation
 
@@ -48,7 +48,7 @@ function getBudgetTotal (budgetArr) {
 	
 	for (var i = 0; i < budgetArr.length; i++) {
 		budgetTotal += budgetArr[i].value;
-		console.log("Budget Arr Val: %d. Budget Total: %d.", budgetArr[i].value, budgetTotal);
+		//console.log("Budget Arr Val: %d. Budget Total: %d.", budgetArr[i].value, budgetTotal);
 	}
 	return budgetTotal;
 }

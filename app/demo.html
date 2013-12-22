@@ -231,13 +231,13 @@
 				<span class='fi-graph-pie button-mini-icon'></span>
 				 Show Budget Graph >				
 			</a>
-	 		<div id="panel1" class="content active">
+	 		<div id="panel1" class="content active" ng-controller='BudgetNotificationsCtrl'>
 		 		<div id='chart_div'>
 			      Chart
 			    </div>
-			    <div data-alert class="alert-box text-center" id='budget-notifications'>
-				 <span id='budget-notifications-icon' class='button-mini-icon fi-alert'> </span>
-				 <span id='budget-notifications-message'> Budget Notifications</span>
+				<div data-alert class="alert-box text-center" ng-class='alertBoxClass' id='budget-notifications'>				 	
+					 <span id='budget-notifications-icon' class='button-mini-icon' ng-class='budgetNotificationsIcon'> </span>
+					 <span id='budget-notifications-message'> {{budgetNotifcationsMessage}}</span>				 	
 				</div>
 			</div>		    
 	 	</dd>	

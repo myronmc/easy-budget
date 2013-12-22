@@ -12,6 +12,29 @@ var budgetEntry = function (desc, value) {
 
 var easyBudget = angular.module('easyBudget', []);
 
+easyBudget.controller('BudgetNotificationsCtrl', ['$scope', function ($scope) {
+	//$scope.expensePercentage = (totalExpense/(totalIncome + totalExpense)) * 100;
+	
+	
+		var expensePercentage = (totalExpense/(totalIncome + totalExpense)) * 100;
+		if (expensePercentage >= 80) {		
+			$scope.alertBoxClass = 'warning';
+			$scope.budgetNotificationsIcon = 'fi-dislike';
+	    	$scope.budgetNotifcationsMessage = 'Stop spending, or increase your income before you go broke!';
+	    }
+	    if (expensePercentage > 50 && expensePercentage < 80) {
+	    	$scope.alertBoxClass = 'info';
+			$scope.budgetNotificationsIcon = 'fi-alert';
+	    	$scope.budgetNotifcationsMessage = 'Not bad, try not to let your expenses pass 80%';
+	    }	
+	    if (expensePercentage <= 50) {
+	    	$scope.alertBoxClass = 'success';
+			$scope.budgetNotificationsIcon = 'fi-like';
+	    	$scope.budgetNotifcationsMessage = 'Good job, keep increasing the gap!';
+		}
+	
+}]);
+
 easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
   	$scope.incomeArr = [];
   	$scope.showUpdate = false;  	
@@ -26,8 +49,8 @@ easyBudget.controller('IncomeCtrl', ['$scope', function ($scope) {
 	}
 	
 	function updateChartValues() {
-		totalIncome = getBudgetTotal($scope.incomeArr);	  
-		drawChart();
+		totalIncome = getBudgetTotal($scope.incomeArr);	 		
+		drawChart();		
 	}
 	
 	updateChartValues();
